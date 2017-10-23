@@ -1,0 +1,8 @@
+node_modules
+venv
+*.sqlite3
+dist
+__pycache__
+migrations
+yarn*
+assets
