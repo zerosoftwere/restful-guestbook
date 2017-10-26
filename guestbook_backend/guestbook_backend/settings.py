@@ -6,9 +6,9 @@ ALLOWED_HOST = []
 SECRET_KEY = '{{ secret_key }}'
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
-    'django.contrib.auth',
     'rest_framework',
     'api'
 ]
