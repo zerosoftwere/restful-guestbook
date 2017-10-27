@@ -10,12 +10,18 @@ export default class Add extends Component {
     constructor() {
         super(...arguments);
 
+        this.state = { disabled: false };
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(evt) {
-        let content = this.refs.content;
-        this.props.addEntry(content.value);
+        let content = this.refs.content.value;
+        
+        this.setState({disabled: true});
+        this.props.addEntry(content, () => {
+            this.refs.content.value = '';
+            this.setState({disabled: false});
+        });
     }
 
     render() {
@@ -29,7 +35,7 @@ export default class Add extends Component {
                         <textarea className="form-control" ref="content" rows="3" required></textarea>
                     </div>
                     <div className="form-group">
-                        <button className="btn btn-primary" type="submit" onClick={ this.handleClick }>Submit</button>
+                        <button className="btn btn-primary" type="submit" onClick={ this.handleClick } disabled={ this.state.disabled }>Submit</button>
                     </div>
                 </div>
             </div>

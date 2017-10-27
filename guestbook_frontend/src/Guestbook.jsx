@@ -20,7 +20,7 @@ export default class App extends Component {
                 <List entries={ this.props.entries }/>
 
                 <button type="button" className="btn btn-danger" 
-                    onClick={ this.props.actions.clearEntries }>Clear</button>
+                    onClick={ this.props.actions.clearEntries }>Clear Entries</button>
             </div>
         );
     }

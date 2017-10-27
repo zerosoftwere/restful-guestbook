@@ -20,18 +20,10 @@ export default class GuestbookContainer extends Component {
      * state entries.
      */
     componentDidMount() {
-        this.setState({
-            entries: [
-                {
-                    id: 1,
-                    content: 'Hello World'
-                },
-                {
-                    id: 2,
-                    content: 'Goodbye cruel World'
-                },
-            ]
-        })
+       fetch('http://localhost:8000/api/entries/')
+        .then(response => response.json())
+        .then(entries => this.setState({entries: entries}))
+        .catch(err => console.log('Error fetching data', err));
     }
 
     render() {
@@ -47,20 +39,41 @@ export default class GuestbookContainer extends Component {
     }
 
     /**
-     * Add entry to current state object and update the backend.
-     * revert back to previous state in terms of error and 
-     * notify the user
+     * Add entry to datastore.
      */
-    addEntry(content) {
-        console.log('Added: ' + content );
+    addEntry(content, callback) {
+        let prevEntries = this.state.entries;
+        let nextEntries = prevEntries.slice();
+
+        fetch('http://localhost:8000/api/entries/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ content: content })
+        })
+        .then(response => response.json())
+        .then(entry => {
+            nextEntries.unshift(entry);
+            this.setState({entries: nextEntries});
+            callback()
+        })
+        .catch((err) => {
+            console.log('Error fetching data:', err);
+            callback();
+        });
     }
 
     /**
-     * Clear all entries from current state object and notify the backend.
-     * revert back to previous state in terms of error and
-     * notify the user.
+     * Clear all entries from datastore.
      */
     clearEntries() {
-        console.log('Clear Entries');
+        fetch('http://localhost:8000/api/entries/', {
+            method: 'DELETE'
+        }).then(() => {
+            this.setState({entries: []});
+        }).catch((err) => {
+            console.log('Error occured:', err);
+        });
     }
 }

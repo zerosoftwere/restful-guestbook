@@ -10,7 +10,6 @@ export default class List extends Component {
         let entries = this.props.entries.map((entry) => (
             <li className="list-group-item" key={ entry.id }>{ entry.content }</li>
         ));
-        console.log(entries);
 
         return (
             <ul className="list-group">
