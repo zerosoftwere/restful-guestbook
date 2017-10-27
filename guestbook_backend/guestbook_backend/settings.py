@@ -10,14 +10,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
     'rest_framework',
+    'corsheaders',
     'api'
 ]
 
 MIDDLEWARE_CLASSES = [
-    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'guestbook_backend.urls'
@@ -37,3 +36,5 @@ DATABASES = {
         'NAME': 'db.sqlite3'
     }
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
