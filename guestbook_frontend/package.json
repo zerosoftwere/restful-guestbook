@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "node_modules/webpack/bin/webpack.js"
+  },
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
